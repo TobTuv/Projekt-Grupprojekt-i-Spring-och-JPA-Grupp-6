@@ -1,9 +1,11 @@
 package domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Table {
@@ -14,13 +16,11 @@ public class Table {
     private int tableNumber;
     private int capacity;
 
-    @ManyToOne
-    private Reservation booking;
+    @OneToMany(mappedBy = "table")
+    private List<Reservation> reservations;
 
-    public Table(long id, int tableNumber, int capacity, Reservation booking) {
-        this.id = id;
+    public Table(int tableNumber, int capacity) {
         this.tableNumber = tableNumber;
         this.capacity = capacity;
-        this.booking = booking;
     }
 }
