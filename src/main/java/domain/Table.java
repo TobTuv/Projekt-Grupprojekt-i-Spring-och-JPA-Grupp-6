@@ -27,8 +27,7 @@ public class Table {
     @OneToMany(mappedBy = "table", cascade = CascadeType.PERSIST)
     private List<Reservation> reservations;
 
-    public Table(long id, int tableNumber, int capacity, boolean isAvailable, List<Reservation> reservations) {
-        this.id = id;
+    public Table(int tableNumber, int capacity, boolean isAvailable, List<Reservation> reservations) {
         this.tableNumber = tableNumber;
         this.capacity = capacity;
         this.isAvailable = isAvailable;

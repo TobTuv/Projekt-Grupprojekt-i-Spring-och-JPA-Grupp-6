@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import dao.TableDAO;
 import domain.Table;
