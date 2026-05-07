@@ -1,6 +1,6 @@
-package dao;
+package se.yrgo.dao;
 
-import domain.Customer;
+import se.yrgo.domain.Customer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;

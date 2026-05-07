@@ -1,6 +1,6 @@
-package service;
+package se.yrgo.service;
 
-import domain.Customer;
+import se.yrgo.domain.Customer;
 
 import java.util.List;
 

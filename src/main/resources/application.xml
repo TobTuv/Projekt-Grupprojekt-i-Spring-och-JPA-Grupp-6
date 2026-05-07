@@ -17,9 +17,10 @@
 
 
     <!-- skanna paketen -->
-    <context:component-scan base-package="dao, domain, main, advice"/>
+    <context:component-scan base-package="se.yrgo"/>
 
     <!-- Transactional -->
+    <context:annotation-config/>
     <tx:annotation-driven/>
 
     <!-- databasanslutning -->
@@ -35,7 +36,7 @@
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="domain"/>
+        <property name="packagesToScan" value="se.yrgo.domain"/>
 
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">

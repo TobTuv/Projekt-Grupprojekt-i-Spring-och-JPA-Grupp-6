@@ -1,7 +1,7 @@
-package service;
+package se.yrgo.service;
 
-import dao.TableDAO;
-import domain.Table;
+import se.yrgo.dao.TableDAO;
+import se.yrgo.domain.Tables;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,36 +17,36 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
-    public void create(Table table) {
+    public void create(Tables table) {
 
         tableDAO.create(table);
     }
 
     @Override
-    public void destroyTable(Table oldTable) {
+    public void destroyTable(Tables oldTable) {
 
         tableDAO.destroyTable(oldTable);
     }
 
     @Override
-    public void update(Table table) {
+    public void update(Tables table) {
 
 
     }
 
     @Override
-    public List<Table> findTablesWithoutReservation() {
+    public List<Tables> findTablesWithoutReservation() {
         return tableDAO.findAvailableTables();
     }
 
 
     @Override
-    public Table findById(Long id) {
+    public Tables findById(Long id) {
         return tableDAO.findById(id);
     }
 
     @Override
-    public List<Table> findAll() {
+    public List<Tables> findAll() {
         return tableDAO.findAll();
     }
 }

@@ -1,4 +1,4 @@
-package domain;
+package se.yrgo.domain;
 
 import jakarta.persistence.*;
 
@@ -8,15 +8,15 @@ import java.util.List;
 @NamedQueries({
 
         @NamedQuery(
-                name = "DiningTable.findAllTables",
-                query = "select dt from Table dt"
+                name = "Table.findAllTables",
+                query = "from Tables"
         ),
         @NamedQuery(
-                name = "DiningTable.findEmptyTables",
-                query = "select dt from Table dt where dt.reservations IS EMPTY"
+                name = "Table.findEmptyTables",
+                query = "from Tables dt where dt.reservations IS EMPTY"
         )
 })
-public class Table {
+public class Tables {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +27,14 @@ public class Table {
     @OneToMany(mappedBy = "table", cascade = CascadeType.PERSIST)
     private List<Reservation> reservations;
 
-    public Table(int tableNumber, int capacity, boolean isAvailable, List<Reservation> reservations) {
+    public Tables(int tableNumber, int capacity, boolean isAvailable, List<Reservation> reservations) {
         this.tableNumber = tableNumber;
         this.capacity = capacity;
         this.isAvailable = isAvailable;
         this.reservations = reservations;
     }
 
-    public Table() {
+    public Tables() {
 
     }
 
@@ -72,5 +72,16 @@ public class Table {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    @Override
+    public String toString() {
+        return "Tables{" +
+                "id=" + id +
+                ", tableNumber=" + tableNumber +
+                ", capacity=" + capacity +
+                ", isAvailable=" + isAvailable +
+                ", reservations=" +
+                '}';
     }
 }

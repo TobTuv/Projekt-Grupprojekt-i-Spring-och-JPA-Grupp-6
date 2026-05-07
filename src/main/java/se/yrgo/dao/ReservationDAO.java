@@ -1,12 +1,12 @@
-package dao;
+package se.yrgo.dao;
 
-import domain.Table;
+import se.yrgo.domain.Tables;
 
 import java.util.List;
 
 public interface ReservationDAO {
 
-    public List<Table> getAllTables();
+    public List<Tables> getAllTables();
 
     public void getTableByIsbn(String id);
 

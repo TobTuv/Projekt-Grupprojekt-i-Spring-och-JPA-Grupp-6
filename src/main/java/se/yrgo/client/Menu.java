@@ -1,12 +1,28 @@
-package client;
+package se.yrgo.client;
 
+import java.util.List;
 import java.util.Scanner;
 
-import domain.Customer;
+import se.yrgo.domain.Customer;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import se.yrgo.domain.Reservation;
+import se.yrgo.domain.Tables;
+import se.yrgo.service.TableService;
 
 public class Menu {
 
     public static void main(String[] args) {
+
+        TableService tableService;
+
+        ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application.xml");
+
+
+
+        tableService = container.getBean(TableService.class);
+
+
+        tableService.findAll().forEach(System.out::println);
 
         Customer customer = new Customer();
         welcomeText();

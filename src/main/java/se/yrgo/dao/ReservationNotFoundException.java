@@ -1,4 +1,4 @@
-package dao;
+package se.yrgo.dao;
 
 public class ReservationNotFoundException extends RuntimeException {
     public ReservationNotFoundException(String message) {

@@ -1,4 +1,4 @@
-package domain;
+package se.yrgo.domain;
 
 import java.time.LocalDateTime;
 
@@ -47,11 +47,11 @@ public class Reservation {
         this.customer = customer;
     }
 
-    public Table getTable() {
+    public Tables getTable() {
         return table;
     }
 
-    public void setTable(Table table) {
+    public void setTable(Tables table) {
         this.table = table;
     }
 
@@ -59,7 +59,7 @@ public class Reservation {
     private Customer customer;
 
     @ManyToOne
-    private Table table;
+    private Tables table;
 
     public Reservation() {
     }
@@ -67,7 +67,7 @@ public class Reservation {
     public Reservation(LocalDateTime dateTime,
             int numberOfGuests,
             Customer customer,
-            Table table) {
+            Tables table) {
 
         this.dateTime = dateTime;
         this.numberOfGuests = numberOfGuests;

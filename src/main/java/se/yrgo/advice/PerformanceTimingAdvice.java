@@ -1,4 +1,4 @@
-package advice;
+package se.yrgo.advice;
 
 public class PerformanceTimingAdvice {
 }

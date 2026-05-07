@@ -1,4 +1,4 @@
-package dao;
+package se.yrgo.dao;
 
 public class TableNotFoundException extends RuntimeException {
 
