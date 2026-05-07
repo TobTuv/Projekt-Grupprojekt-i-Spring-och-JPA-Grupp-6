@@ -47,11 +47,11 @@ public class Reservation {
         this.customer = customer;
     }
 
-    public DiningTable getTable() {
+    public Table getTable() {
         return table;
     }
 
-    public void setTable(DiningTable table) {
+    public void setTable(Table table) {
         this.table = table;
     }
 
@@ -59,7 +59,7 @@ public class Reservation {
     private Customer customer;
 
     @ManyToOne
-    private DiningTable table;
+    private Table table;
 
     public Reservation() {
     }
@@ -67,7 +67,7 @@ public class Reservation {
     public Reservation(LocalDateTime dateTime,
             int numberOfGuests,
             Customer customer,
-            DiningTable table) {
+            Table table) {
 
         this.dateTime = dateTime;
         this.numberOfGuests = numberOfGuests;

@@ -1,12 +1,12 @@
 package dao;
 
-import domain.DiningTable;
+import domain.Table;
 
 import java.util.List;
 
 public interface ReservationDAO {
 
-    public List<DiningTable> getAllTables();
+    public List<Table> getAllTables();
 
     public void getTableByIsbn(String id);
 

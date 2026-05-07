@@ -1,10 +1,10 @@
-package dao;
+package Service;
 
 import domain.Table;
 
 import java.util.List;
 
-public interface TableDAO {
+public interface TableService {
 
     public void create(Table table);
 
@@ -12,11 +12,10 @@ public interface TableDAO {
 
     public void update(Table table);
 
-    List<Table> findAvailableTables();
+
+    List<Table> findTablesWithoutReservation();
 
     Table findById(Long id);
 
     List<Table> findAll();
-
-
 }
