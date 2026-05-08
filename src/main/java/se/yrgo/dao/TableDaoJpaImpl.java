@@ -25,7 +25,10 @@ public class TableDaoJpaImpl implements TableDAO {
 
         if (tableToRemove != null) {
             em.remove(tableToRemove);
+        } else {
+            throw new TableNotFoundException("you missed, you are really bad at this huh?");
         }
+
 
     }
 
@@ -38,9 +41,8 @@ public class TableDaoJpaImpl implements TableDAO {
     @Override
     public List<Tables> findAvailableTables() {
 
-        String available = "Select dt from Tables dt where dt.isAvailable = true";
 
-        return em.createQuery(available, Tables.class).getResultList();
+        return em.createNamedQuery("Table.findEmptyTables", Tables.class).getResultList();
     }
 
 

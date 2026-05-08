@@ -13,8 +13,10 @@ import java.util.List;
         ),
         @NamedQuery(
                 name = "Table.findEmptyTables",
-                query = "from Tables dt where dt.reservations IS EMPTY"
-        )
+                query = "from Tables dt where dt.reservations IS EMPTY AND dt.isAvailable = true "
+        ),
+
+
 })
 public class Tables {
 

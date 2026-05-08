@@ -19,6 +19,7 @@ public class Customer {
     private List<Reservation> reservations;
 
     public Customer() {
+
     }
 
     public Customer(String firstName, String lastName, String email, String phone) {
