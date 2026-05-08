@@ -36,6 +36,10 @@ public class Tables {
         this.reservations = reservations;
     }
 
+    public Tables(long id) {
+        this.id = id;
+    }
+
     public Tables() {
 
     }
@@ -79,11 +83,20 @@ public class Tables {
     @Override
     public String toString() {
         return "Tables{" +
-                "id=" + id +
-                ", tableNumber=" + tableNumber +
+
+                " tableNumber " + tableNumber +
                 ", capacity=" + capacity +
-                ", isAvailable=" + isAvailable +
-                ", reservations=" +
-                '}';
+                ", Table is available " + isAvailable +
+                ", reservations="
+                ;
     }
+//    public String toString() {
+//        return "Tables{" +
+//                "id=" + id +
+//                ", tableNumber=" + tableNumber +
+//                ", capacity=" + capacity +
+//                ", isAvailable=" + isAvailable +
+//                ", reservations=" +
+//                '}';
+//    }
 }
