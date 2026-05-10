@@ -37,7 +37,7 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
-    public List<Tables> findTablesWithoutReservation() {
+    public List<Tables> findAvailableTables() {
         return tableDAO.findAvailableTables();
     }
 

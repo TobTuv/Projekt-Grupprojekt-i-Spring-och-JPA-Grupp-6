@@ -40,7 +40,7 @@ public class Menu {
             input.nextLine();
             switch (choice) {
                 case 1 -> CustomerService.createProfile(customer, input);
-                case 2 -> BookaReservation.BookaTable(customer, input,tableService);
+                case 2 -> BookaReservation.BookaTable(customer, input, tableService);
                 case 3 -> {
 
                     if (customer.getFirstName() != null) {
@@ -55,7 +55,6 @@ public class Menu {
             }
 
 
-            container.close();
         }
 
     }

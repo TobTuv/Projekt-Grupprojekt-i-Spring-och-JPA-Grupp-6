@@ -13,6 +13,7 @@ public class BookaReservation {
 
     public static void BookaTable(Customer customer, Scanner input, TableService tableService) {
         Reservation reservations = new Reservation();
+
         if (customer.getFirstName() == null) {
             System.out.println("Sir you need to register yourself");
             TextClass.clearScreen();
