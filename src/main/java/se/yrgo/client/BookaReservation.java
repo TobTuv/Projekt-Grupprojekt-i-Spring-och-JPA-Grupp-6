@@ -1,17 +1,25 @@
 package se.yrgo.client;
 
-import se.yrgo.dao.TableNotFoundException;
+import se.yrgo.exception.TableNotFoundException;
 import se.yrgo.domain.Customer;
 import se.yrgo.domain.Reservation;
 import se.yrgo.domain.Tables;
+import se.yrgo.exception.ReservationNotFoundException;
+import se.yrgo.service.ReservationService;
 import se.yrgo.service.TableService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class BookaReservation {
+    
+    private static final DateTimeFormatter FMT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-
-    public static void BookaTable(Customer customer, Scanner input, TableService tableService) {
+    public static void BookaTable(Customer customer, Scanner input, TableService tableService,
+                                  ReservationService reservationService) {
         Reservation reservations = new Reservation();
 
         if (customer.getFirstName() == null) {
@@ -43,12 +51,38 @@ public class BookaReservation {
             if (tables != null) {
                 break;
             }
-
-
         }
 
-        System.out.println("your table is booked");
+        //date
+        System.out.print("Date and time (yyyy-MM-dd HH:mm): ");
+        LocalDateTime dateTime = null;
+        while (dateTime == null) {
+            try {
+                dateTime = LocalDateTime.parse(input.nextLine(), FMT);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid format, try again (yyyy-MM-dd HH:mm):");
+            }
+        }
 
+        // Number of guests
+        System.out.println("Number of guests ");
+        int guests = input.nextInt();
+        input.nextLine();
 
+        //Notes
+        System.out.println("Notes ( or press enter to skip): ");
+        String notes = input.nextLine();
+
+        //Save booking via ReservationService
+        try {
+            Reservation r = reservationService.bookTable(
+                    customer.getId(), tables.getId(), dateTime, guests, notes);
+            System.out.println("your table is booked!/n" + r);
+        } catch (IllegalArgumentException e) {
+            System.out.println("could not book: " + e.getMessage());
+        }
+        System.out.println("\nPress Enter to continue");
+        input.nextLine();
+        
     }
 }

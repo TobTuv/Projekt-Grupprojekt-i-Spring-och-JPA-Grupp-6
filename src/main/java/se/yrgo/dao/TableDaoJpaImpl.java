@@ -31,7 +31,6 @@ public class TableDaoJpaImpl implements TableDAO {
             throw new TableNotFoundException("you missed, you are really bad at this huh?");
         }
 
-
     }
 
     @Override
