@@ -1,6 +1,5 @@
 package se.yrgo.domain;
 
-import se.yrgo.domain.MenuItem;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -42,14 +41,7 @@ public class Reservation {
     @JoinColumn(name ="table_id", nullable = false)
     private Tables table;
 
-    @ManyToMany
-    @JoinTable(
-            name = "reseration_menu_item",
-            joinColumns = @JoinColumn(name = "reservation_id"),
-            inverseJoinColumns = @JoinColumn(name ="meny_item_id")
-    )
 
-    private List<MenuItem> preOrderedItems = new ArrayList<>();
     public Reservation(){}
 
     public Reservation(LocalDateTime dateTime, int numberOfGuests,
@@ -76,8 +68,7 @@ public class Reservation {
     public void setCustomer(Customer customer) { this.customer = customer; }
     public Tables getTable() { return table; }
     public void setTable(Tables table) { this.table = table; }
-    public List<MenuItem> getPreOrderedItems() { return preOrderedItems; }
-    public void setPreOrderedItems(List<MenuItem> items) { this.preOrderedItems = items; }
+
 
 
     @Override
