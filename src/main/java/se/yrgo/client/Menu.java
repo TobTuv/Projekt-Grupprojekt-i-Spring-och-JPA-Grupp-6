@@ -4,6 +4,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import se.yrgo.domain.Customer;
 import se.yrgo.domain.Tables;
 import se.yrgo.service.TableService;
+import se.yrgo.service.ReservationService;
 
 import java.util.Scanner;
 
@@ -20,6 +21,8 @@ public class Menu {
 
 
         tableService = container.getBean(TableService.class);
+        ReservationService reservationService = container.getBean(ReservationService.class);
+
         tableService.findAll().forEach(System.out::println);
 
 //        Tables tablesToFind = new Tables(5);
@@ -40,7 +43,7 @@ public class Menu {
             input.nextLine();
             switch (choice) {
                 case 1 -> CustomerService.createProfile(customer, input);
-                case 2 -> BookaReservation.BookaTable(customer, input, tableService);
+                case 2 -> BookaReservation.BookaTable(customer, input, tableService, reservationService);
                 case 3 -> {
 
                     if (customer.getFirstName() != null) {
