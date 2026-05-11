@@ -4,6 +4,7 @@ import se.yrgo.domain.Tables;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import se.yrgo.exception.TableNotFoundException;
 
 import java.util.List;
 @Repository
