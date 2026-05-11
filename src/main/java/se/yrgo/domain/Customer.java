@@ -1,12 +1,8 @@
-package domain;
+package se.yrgo.domain;
+
+import jakarta.persistence.*;
 
 import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Customer {
@@ -23,6 +19,7 @@ public class Customer {
     private List<Reservation> reservations;
 
     public Customer() {
+
     }
 
     public Customer(String firstName, String lastName, String email, String phone) {
@@ -74,5 +71,13 @@ public class Customer {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                %s %s
+                %s
+                %s""", firstName,lastName,email,phone);
     }
 }
