@@ -31,7 +31,8 @@ public class Menu {
             System.out.printf("""
                     1. Register Customer
                     2. Book A Table
-                    3. Leave""");
+                    3. Cancel Reservation.
+                    4. Leave""");
 
 
             System.out.println();
@@ -41,7 +42,8 @@ public class Menu {
             switch (choice) {
                 case 1 -> CustomerService.createProfile(customer, input);
                 case 2 -> BookaReservation.BookaTable(customer, input, tableService);
-                case 3 -> {
+                case 3 -> System.out.println("reservation cancel här");
+                case 4 -> {
 
                     if (customer.getFirstName() != null) {
                         System.out.println("We hope to see you again " + customer.getFirstName());
