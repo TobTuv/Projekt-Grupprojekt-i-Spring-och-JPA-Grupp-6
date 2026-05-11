@@ -12,7 +12,7 @@ public interface TableService {
 
     public void update(Tables table);
 
-    List<Tables> findTablesWithoutReservation();
+    List<Tables> findAvailableTables();
 
     Tables findById(Long id);
 

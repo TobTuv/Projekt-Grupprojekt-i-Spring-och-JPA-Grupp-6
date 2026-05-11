@@ -1,5 +1,6 @@
 package se.yrgo.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import se.yrgo.dao.TableDAO;
 import se.yrgo.domain.Tables;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ public class TableServiceImpl implements TableService {
 
     private TableDAO tableDAO;
 
+    @Autowired
     public TableServiceImpl(TableDAO tableDAO) {
         this.tableDAO = tableDAO;
     }
@@ -35,7 +37,7 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
-    public List<Tables> findTablesWithoutReservation() {
+    public List<Tables> findAvailableTables() {
         return tableDAO.findAvailableTables();
     }
 

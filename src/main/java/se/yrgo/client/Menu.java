@@ -2,7 +2,7 @@ package se.yrgo.client;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import se.yrgo.domain.Customer;
-import se.yrgo.domain.Reservation;
+import se.yrgo.domain.Tables;
 import se.yrgo.service.TableService;
 
 import java.util.Scanner;
@@ -11,22 +11,23 @@ public class Menu {
 
     public static void main(String[] args) {
 
+
         Scanner input = new Scanner(System.in);
         Customer customer = new Customer();
         TableService tableService;
-        CustomerService customerService;
+        Tables tables = new Tables(2, 4, true, null);
         ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application.xml");
 
 
         tableService = container.getBean(TableService.class);
-
-
-
         tableService.findAll().forEach(System.out::println);
 
-        welcomeText();
+//        Tables tablesToFind = new Tables(5);
+//        tableService.destroyTable(tablesToFind);
+
+        TextClass.welcomeText();
         while (true) {
-            clearScreen();
+            TextClass.clearScreen();
             System.out.printf("""
                     1. Register Customer
                     2. Book A Table
@@ -39,11 +40,11 @@ public class Menu {
             input.nextLine();
             switch (choice) {
                 case 1 -> CustomerService.createProfile(customer, input);
-                case 2 -> BookaReservation.BookaTable(customer, input, new Reservation());
+                case 2 -> BookaReservation.BookaTable(customer, input, tableService);
                 case 3 -> {
 
                     if (customer.getFirstName() != null) {
-                        System.out.println("bye bye " + customer.getFirstName());
+                        System.out.println("We hope to see you again " + customer.getFirstName());
                         return;
                     } else {
                         System.out.println("Mcdonalds that way");
@@ -54,16 +55,15 @@ public class Menu {
             }
 
 
-            container.close();
         }
 
     }
 
-    public static void welcomeText() {
-        System.out.println("****************************");
-        System.out.println("| welcome to hells kitchen |");
-        System.out.println("****************************");
-    }
+//    public static void welcomeText() {
+//        System.out.println("****************************");
+//        System.out.println("| welcome to hells kitchen |");
+//        System.out.println("****************************");
+//    }
 
 //    public static void createProfile(Customer customer) {
 //        Scanner namninput = new Scanner(System.in);
@@ -90,8 +90,8 @@ public class Menu {
 //        namninput.nextLine();
 //    }
 
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+//    public static void clearScreen() {
+//        System.out.print("\033[H\033[2J");
+//        System.out.flush();
+//    }
 }
