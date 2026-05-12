@@ -64,7 +64,7 @@ public class BookaReservation {
             }catch (TableNotFoundException e) {
                 System.out.println("table was not found, try again");
             }catch (InputMismatchException e) {
-                System.out.println("Please put in a valid number");
+                System.out.println("Var vänlig och skriv in rätt siffra");
                 input.nextLine();
             }
 
@@ -80,7 +80,7 @@ public class BookaReservation {
                 date = LocalDate.parse(input.nextLine());
 
                 if (date.isBefore(LocalDate.now())) {
-                    System.out.println("Cannot choose past dates.");
+                    System.out.println("Kan inte välja tidigare datum. ");
                     date = null;
                 }
 
