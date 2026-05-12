@@ -62,7 +62,7 @@ public class BookaReservation {
 
             break;
             }catch (TableNotFoundException e) {
-                System.out.println("table was not found, try again");
+                System.out.println("Bordet hittades ej, försök igen");
             }catch (InputMismatchException e) {
                 System.out.println("Var vänlig och skriv in rätt siffra");
                 input.nextLine();
