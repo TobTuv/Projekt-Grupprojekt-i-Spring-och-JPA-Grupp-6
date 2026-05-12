@@ -29,34 +29,39 @@ public class BookaReservation {
         Reservation reservations = new Reservation();
 
         if (customer.getFirstName() == null) {
-            System.out.println("Sir you need to register yourself");
-            TextClass.clearScreen();
+            System.out.println("Du måste registrera dig först");
+            //TextClass.clearScreen();
             return;
         }
 
-        System.out.println("Welcome Sir/Madame " + customer.getFirstName());
+        System.out.println("Välkommen " + customer.getFirstName());
         tableService.findAll().forEach(System.out::println);
 
-        System.out.println("Please book a available table");
+        System.out.println("Var vänlig och välj ett tillgängligt bord.");
 
         Tables tables;
 
         while (true) {
-            System.out.println("Choose table id:");
+            System.out.println("Välj ett bordsnummer: ");
             Long choice = input.nextLong();
             input.nextLine();
 
             tables = tableService.findById(choice);
 
+            if (!tableService.findById(choice).isAvailable()){
+                System.out.println("Bordet är inte tillgängligt.");
+                return;
+            }
+
             if (tables != null) {
                 break;
             }
 
-            System.out.println("Table not found, try again");
+            System.out.println("Bordet hittades inte, försök igen");
         }
 
         // date
-        System.out.print("Enter date (yyyy-MM-dd): ");
+        System.out.print("Datum och tid (yyyy-MM-dd): ");
 
         LocalDate date = null;
 
@@ -70,7 +75,7 @@ public class BookaReservation {
                 }
 
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid format.");
+                System.out.println("Ogiltigt format, försök igen (yyyy-MM-dd):");
             }
         }
 
@@ -98,12 +103,12 @@ public class BookaReservation {
                 LocalDateTime.of(date, chosenTime);
 
         // Number of guests
-        System.out.println("Number of guests ");
+        System.out.println("Antal gäster ");
         int guests = input.nextInt();
         input.nextLine();
 
         // Notes
-        System.out.println("Notes ( or press enter to skip): ");
+        System.out.println("Anteckningar ( tryck enter för att fortsätta): ");
         String notes = input.nextLine();
 
         // Save booking via ReservationService
@@ -112,9 +117,9 @@ public class BookaReservation {
                     customer.getId(), tables.getId(), dateTime, guests, notes);
             System.out.println("Ditt bord är bokad " + r);
         } catch (IllegalArgumentException e) {
-            System.out.println("could not book: " + e.getMessage());
+            System.out.println("Det gick inte att boka: " + e.getMessage());
         }
-        System.out.println("\nPress Enter to continue");
+        System.out.println("\nTryck enter för att fortsätta");
         input.nextLine();
 
     }
