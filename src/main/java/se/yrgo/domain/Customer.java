@@ -5,6 +5,11 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+
+        @NamedQuery(name = "Customer.findBookings",
+                query = "SELECT r FROM Customer c JOIN c.reservations r WHERE c.id = :id")
+})
 public class Customer {
 
     @Id
@@ -78,6 +83,6 @@ public class Customer {
         return String.format("""
                 %s %s
                 %s
-                %s""", firstName,lastName,email,phone);
+                %s""", firstName, lastName, email, phone);
     }
 }

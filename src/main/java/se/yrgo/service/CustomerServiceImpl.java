@@ -1,14 +1,16 @@
 package se.yrgo.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.dao.CustomerDAO;
 import se.yrgo.domain.Customer;
+import se.yrgo.domain.Reservation;
+
+import java.util.List;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
@@ -39,4 +41,12 @@ public class CustomerServiceImpl implements CustomerService {
     public void save(Customer customer) {
         customerDAO.save(customer);
     }
+
+    @Override
+    public List<Reservation> findBookingsByCustomerId(Long customerId) {
+        return
+                customerDAO.findBookingsByCustomerId(customerId);
+    }
+
+
 }

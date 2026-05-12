@@ -5,11 +5,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
+import se.yrgo.domain.Reservation;
 
 import java.util.List;
 
 @Repository
-@Transactional
 public class CustomerDAOImplementation implements CustomerDAO {
 
     @PersistenceContext
@@ -25,6 +25,13 @@ public class CustomerDAOImplementation implements CustomerDAO {
 
     public List<Customer> findAll() {
         return em.createQuery("SELECT c FROM Customer AS c", Customer.class)
+                .getResultList();
+    }
+
+
+    public List<Reservation> findBookingsByCustomerId(Long customerId) {
+        return em.createNamedQuery("Customer.findBookings", Reservation.class)
+                .setParameter("id", customerId)
                 .getResultList();
     }
 

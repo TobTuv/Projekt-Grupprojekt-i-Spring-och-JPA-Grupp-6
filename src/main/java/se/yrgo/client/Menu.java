@@ -2,11 +2,13 @@ package se.yrgo.client;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import se.yrgo.domain.Customer;
+import se.yrgo.domain.Reservation;
 import se.yrgo.domain.Tables;
-import se.yrgo.service.TableService;
 import se.yrgo.service.CustomerService;
 import se.yrgo.service.ReservationService;
+import se.yrgo.service.TableService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -17,13 +19,12 @@ public class Menu {
         CustomerService customerService;
         TableService tableService;
         Customer customer = new Customer();
-        
-        Tables tables = new Tables(2, 4, true, null);
+
         ClassPathXmlApplicationContext container = new ClassPathXmlApplicationContext("application.xml");
-        
+
         tableService = container.getBean(TableService.class);
         customerService = container.getBean(CustomerService.class);
-        
+
         if (tableService.findAll().isEmpty()) {
 
             tableService.create(new Tables(1, 2, true, null));
@@ -34,8 +35,6 @@ public class Menu {
 
         tableService.findAll().forEach(System.out::println);
 
-        // Tables tablesToFind = new Tables(5);
-        // tableService.destroyTable(tablesToFind);
 
         TextClass.welcomeText();
         while (true) {
@@ -43,25 +42,50 @@ public class Menu {
             System.out.printf("""
                     1. Registrera Kund
                     2. Boka Bord
-                    3. Lämna""");
+                    3. Visa bokningar
+                    4. Lämna""");
 
             System.out.println();
 
             int choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1 -> CustomerCreate.createProfile(customerService ,customer, input);
-                case 2 -> BookaReservation.BookaTable(customer, customerService, input, tableService, reservationService);
+                case 1 -> CustomerCreate.createProfile(customerService, customer, input);
+                case 2 ->
+                        BookaReservation.BookaTable(customer, customerService, input, tableService, reservationService);
                 case 3 -> {
+                        List<Reservation> bookings = customerService.findBookingsByCustomerId(customer.getId());
+                    if (bookings == null) {
+                        System.out.println("Du har inga bokningar");
+                        System.out.println("Återvänd till huvudmenyn");
+                        input.nextLine();
+                        TextClass.clearScreen();
+                    } else {
+
+
+                        System.out.printf(" Dina Bokningar: ");
+                        System.out.println();
+
+                        bookings.forEach(System.out::println);
+
+                        System.out.println("Återvänd till huvudmenyn");
+                        System.out.println("Tryck Enter");
+
+                        input.nextLine();
+
+
+                    }
+
+                }
+                case 4 -> {
 
                     if (customer.getFirstName() != null) {
                         System.out.println("Välkommen åter " + customer.getFirstName());
-                        return;
                     } else {
                         System.out.println("Mcdonalds ligger ditåt!");
 
-                        return;
                     }
+                    return;
                 }
             }
 

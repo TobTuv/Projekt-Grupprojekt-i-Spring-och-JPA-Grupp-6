@@ -3,6 +3,7 @@ package se.yrgo.dao;
 import java.util.List;
 
 import se.yrgo.domain.Customer;
+import se.yrgo.domain.Reservation;
 
 public interface CustomerDAO {
 
@@ -17,6 +18,7 @@ public interface CustomerDAO {
 
       public void delete(long id);
 
+      public List<Reservation> findBookingsByCustomerId(Long customerid);
 
 
 

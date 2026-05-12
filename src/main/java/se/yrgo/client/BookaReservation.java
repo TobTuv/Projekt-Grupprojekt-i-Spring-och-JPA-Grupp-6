@@ -31,7 +31,7 @@ public class BookaReservation {
         if (customer.getFirstName() == null) {
             System.out.println("Du måste registrera dig först");
 
-            System.out.println("Tryck 'Enter' för att går till menun");
+            System.out.println("Tryck 'Enter' för att går till huvudmenyn");
             input.nextLine();
             TextClass.clearScreen();
             return;
