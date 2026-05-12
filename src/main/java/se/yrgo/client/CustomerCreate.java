@@ -2,12 +2,15 @@ package se.yrgo.client;
 
 import se.yrgo.domain.Customer;
 
+import java.beans.Customizer;
 import java.util.Scanner;
+import se.yrgo.service.*;
 
-public class CustomerService {
+public class CustomerCreate {
 
-    public static void createProfile(Customer customer, Scanner namninput) {
+    CustomerService customer;
 
+    public static void createProfile(CustomerService customerService, Customer customer, Scanner namninput) {
         System.out.println("name");
         customer.setFirstName(namninput.nextLine());
 
@@ -29,6 +32,7 @@ public class CustomerService {
 
         System.out.println("Press Enter");
         namninput.nextLine();
+        customerService.save(customer);
     }
 
 }

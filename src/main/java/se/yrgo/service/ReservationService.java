@@ -2,7 +2,9 @@ package se.yrgo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import se.yrgo.dao.CustomerDAO;
+import se.yrgo.dao.CustomerDAOImplementation;
 import se.yrgo.dao.ReservationDAO;
 import se.yrgo.dao.TableDAO;
 import se.yrgo.domain.Customer;
@@ -15,14 +17,20 @@ import java.util.List;
 @Service
 public class ReservationService {
 
-    @Autowired private ReservationDAO reservationDAO;
-    @Autowired private CustomerDAO customerDAO;
-    @Autowired private TableDAO tableDAO;
+    @Autowired
+    private ReservationDAO reservationDAO;
+    @Autowired
+    private CustomerDAO customerDAO;
+    @Autowired
+    private TableDAO tableDAO;
 
     public Reservation bookTable(long customerId, long tableId,
-                                 LocalDateTime dateTime, int guests, String notes) {
+            LocalDateTime dateTime, int guests, String notes) {
         Customer customer = customerDAO.findById(customerId);
         Tables table = tableDAO.findById(tableId);
+
+        System.out.println("Customer = " + customer);
+        System.out.println("Table = " + table);
 
         if (table.getCapacity() < guests) {
             throw new IllegalArgumentException(
