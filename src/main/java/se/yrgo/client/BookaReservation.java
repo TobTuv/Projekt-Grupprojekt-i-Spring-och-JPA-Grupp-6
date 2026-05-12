@@ -5,6 +5,7 @@ import se.yrgo.domain.Customer;
 import se.yrgo.domain.Reservation;
 import se.yrgo.domain.Tables;
 import se.yrgo.exception.ReservationNotFoundException;
+import se.yrgo.service.CustomerService;
 import se.yrgo.service.ReservationService;
 import se.yrgo.service.TableService;
 
@@ -14,12 +15,13 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class BookaReservation {
-    
-    private static final DateTimeFormatter FMT =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static void BookaTable(Customer customer, Scanner input, TableService tableService,
-                                  ReservationService reservationService) {
+    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    public static void BookaTable(Customer customer, CustomerService customerService, Scanner input, TableService tableService,
+            ReservationService reservationService) {
+        
+        
         Reservation reservations = new Reservation();
 
         if (customer.getFirstName() == null) {
@@ -28,32 +30,27 @@ public class BookaReservation {
             return;
         }
 
-
         System.out.println("Welcome Sir/Madame " + customer.getFirstName());
         tableService.findAll().forEach(System.out::println);
 
         System.out.println("Please book a available table");
 
-        Long choice = input.nextLong();
+        Tables tables;
+
         while (true) {
-            Tables tables = tableService.findById(choice);
-            try {
-                if (tables == null) {
-                    throw new TableNotFoundException();
-                }
-            } catch (TableNotFoundException ex) {
-                System.out.println("Table not found, try again");
-            }
+            System.out.println("Choose table id:");
+            Long choice = input.nextLong();
 
-            tableService.findAll().forEach(System.out::println);
+            tables = tableService.findById(choice);
 
-            choice = input.nextLong();
             if (tables != null) {
                 break;
             }
+
+            System.out.println("Table not found, try again");
         }
 
-        //date
+        // date
         System.out.print("Date and time (yyyy-MM-dd HH:mm): ");
         LocalDateTime dateTime = null;
         while (dateTime == null) {
@@ -69,11 +66,11 @@ public class BookaReservation {
         int guests = input.nextInt();
         input.nextLine();
 
-        //Notes
+        // Notes
         System.out.println("Notes ( or press enter to skip): ");
         String notes = input.nextLine();
 
-        //Save booking via ReservationService
+        // Save booking via ReservationService
         try {
             Reservation r = reservationService.bookTable(
                     customer.getId(), tables.getId(), dateTime, guests, notes);
@@ -83,6 +80,6 @@ public class BookaReservation {
         }
         System.out.println("\nPress Enter to continue");
         input.nextLine();
-        
+
     }
 }

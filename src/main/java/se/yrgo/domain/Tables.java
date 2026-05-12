@@ -7,15 +7,8 @@ import java.util.List;
 @Entity
 @NamedQueries({
 
-        @NamedQuery(
-                name = "Table.findAllTables",
-                query = "from Tables"
-        ),
-        @NamedQuery(
-                name = "Table.findEmptyTables",
-                query = "from Tables dt where dt.reservations IS EMPTY AND dt.isAvailable = true "
-        ),
-
+        @NamedQuery(name = "Table.findAllTables", query = "from Tables"),
+        @NamedQuery(name = "Table.findEmptyTables", query = "from Tables dt where dt.reservations IS EMPTY AND dt.isAvailable = true "),
 
 })
 public class Tables {
@@ -82,21 +75,17 @@ public class Tables {
 
     @Override
     public String toString() {
-        return "Tables{" +
-
-                " tableNumber " + tableNumber +
-                ", capacity=" + capacity +
-                ", Table is available " + isAvailable +
-                ", reservations="
-                ;
+        return "Table " + tableNumber +
+                " | Capacity: " + capacity +
+                " | Available: " + isAvailable;
     }
-//    public String toString() {
-//        return "Tables{" +
-//                "id=" + id +
-//                ", tableNumber=" + tableNumber +
-//                ", capacity=" + capacity +
-//                ", isAvailable=" + isAvailable +
-//                ", reservations=" +
-//                '}';
-//    }
+    // public String toString() {
+    // return "Tables{" +
+    // "id=" + id +
+    // ", tableNumber=" + tableNumber +
+    // ", capacity=" + capacity +
+    // ", isAvailable=" + isAvailable +
+    // ", reservations=" +
+    // '}';
+    // }
 }
