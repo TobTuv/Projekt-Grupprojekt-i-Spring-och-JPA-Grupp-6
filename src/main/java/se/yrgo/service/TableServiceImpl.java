@@ -33,6 +33,7 @@ public class TableServiceImpl implements TableService {
     @Override
     public void update(Tables table) {
 
+        tableDAO.update(table);
 
     }
 

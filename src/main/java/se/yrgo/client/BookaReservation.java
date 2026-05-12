@@ -1,10 +1,9 @@
 package se.yrgo.client;
 
-import se.yrgo.exception.TableNotFoundException;
 import se.yrgo.domain.Customer;
 import se.yrgo.domain.Reservation;
 import se.yrgo.domain.Tables;
-import se.yrgo.exception.ReservationNotFoundException;
+import se.yrgo.exception.TableNotFoundException;
 import se.yrgo.service.CustomerService;
 import se.yrgo.service.ReservationService;
 import se.yrgo.service.TableService;
@@ -15,6 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,14 +23,17 @@ public class BookaReservation {
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("MM-dd");
 
     public static void BookaTable(Customer customer, CustomerService customerService, Scanner input, TableService tableService,
-            ReservationService reservationService) {
-        
-        
+                                  ReservationService reservationService) {
+
+
         Reservation reservations = new Reservation();
 
         if (customer.getFirstName() == null) {
             System.out.println("Du måste registrera dig först");
-            //TextClass.clearScreen();
+
+            System.out.println("Tryck 'Enter' för att går till menun");
+            input.nextLine();
+            TextClass.clearScreen();
             return;
         }
 
@@ -42,22 +45,29 @@ public class BookaReservation {
         Tables tables;
 
         while (true) {
+            try{
+
             System.out.println("Välj ett bordsnummer: ");
             Long choice = input.nextLong();
             input.nextLine();
 
             tables = tableService.findById(choice);
 
-            if (!tableService.findById(choice).isAvailable()){
-                System.out.println("Bordet är inte tillgängligt.");
-                return;
+
+            if (!tableService.findById(choice).isAvailable()) {
+                System.out.println("Bordet är ej tillgängligt, försök igen");
+                continue;
             }
 
-            if (tables != null) {
-                break;
+
+            break;
+            }catch (TableNotFoundException e) {
+                System.out.println("table was not found, try again");
+            }catch (InputMismatchException e) {
+                System.out.println("Please put in a valid number");
+                input.nextLine();
             }
 
-            System.out.println("Bordet hittades inte, försök igen");
         }
 
         // date
@@ -91,7 +101,7 @@ public class BookaReservation {
         }
 
         System.out.println("Available times: ");
-        for(int i = 0; i < availableTimes.size(); i++){
+        for (int i = 0; i < availableTimes.size(); i++) {
             System.out.println((i + 1) + ". " + availableTimes.get(i));
         }
 
@@ -115,6 +125,8 @@ public class BookaReservation {
         try {
             Reservation r = reservationService.bookTable(
                     customer.getId(), tables.getId(), dateTime, guests, notes);
+            tables.setAvailable(false);
+            tableService.update(tables);
             System.out.println("Ditt bord är bokad " + r);
         } catch (IllegalArgumentException e) {
             System.out.println("Det gick inte att boka: " + e.getMessage());

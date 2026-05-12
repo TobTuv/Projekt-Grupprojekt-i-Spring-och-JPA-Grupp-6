@@ -41,9 +41,9 @@ public class Menu {
         while (true) {
             TextClass.clearScreen();
             System.out.printf("""
-                    1. Register Customer
-                    2. Book A Table
-                    3. Leave""");
+                    1. Registrera Kund
+                    2. Boka Bord
+                    3. Lämna""");
 
             System.out.println();
 
@@ -55,10 +55,10 @@ public class Menu {
                 case 3 -> {
 
                     if (customer.getFirstName() != null) {
-                        System.out.println("We hope to see you again " + customer.getFirstName());
+                        System.out.println("Välkommen åter " + customer.getFirstName());
                         return;
                     } else {
-                        System.out.println("Mcdonalds that way");
+                        System.out.println("Mcdonalds ligger ditåt!");
 
                         return;
                     }
