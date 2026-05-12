@@ -75,9 +75,14 @@ public class Tables {
 
     @Override
     public String toString() {
-        return "Table " + tableNumber +
-                " | Capacity: " + capacity +
-                " | Available: " + isAvailable;
+        if (isAvailable){
+            return "Bord " + tableNumber +
+                    " | Antal platser: " + capacity +
+                    " | Ledigt ";
+        }
+        return "Bord " + tableNumber +
+                    " | Antal platser: " + capacity +
+                    " | Bokat: ";
     }
     // public String toString() {
     // return "Tables{" +
